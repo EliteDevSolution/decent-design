@@ -20,14 +20,15 @@
     "argon2": "^0.40.3",
     "drizzle-orm": "^0.32.0",
     "jose": "^5.6.3",
-    "next": "14.2.5",
+    "next": "^14.2.5",
     "nodemailer": "^6.9.14",
     "pg": "^8.12.0",
     "react": "^18",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",
     "react-use": "^17.5.0",
-    "react-verification-input": "^4.1.2"
+    "react-verification-input": "^4.1.2",
+    "user-management-system": "file:"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.6",
