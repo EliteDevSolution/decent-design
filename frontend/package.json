@@ -1,0 +1,47 @@
+{
+  "name": "user-management-system",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.3.7",
+    "@ant-design/nextjs-registry": "^1.0.0",
+    "@react-email/components": "^0.0.21",
+    "@tanstack/react-query": "^5.51.1",
+    "antd": "^5.19.1",
+    "argon2": "^0.40.3",
+    "drizzle-orm": "^0.32.0",
+    "jose": "^5.6.3",
+    "next": "14.2.5",
+    "nodemailer": "^6.9.14",
+    "pg": "^8.12.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-hot-toast": "^2.4.1",
+    "react-use": "^17.5.0",
+    "react-verification-input": "^4.1.2"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^20",
+    "@types/nodemailer": "^6.4.15",
+    "@types/pg": "^8.11.6",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "dotenv": "^16.4.5",
+    "drizzle-kit": "^0.23.0",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
