@@ -21,16 +21,18 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { LocalAuthGuard } from './local-auth.guard';
 import { ParseIntPipe } from '@nestjs/common';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { GetUser } from './decorators/get-user-decorator';
 
-@Controller('user')
+@Controller('api/user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   // Handles user login authentication
 
   @UseGuards(LocalAuthGuard)
-  @Post('login')
+  @Post('/login')
   async login(@Request() req) {
+    console.log('Here is login part');
     return this.userService.login(req.user);
   }
 
@@ -39,7 +41,7 @@ export class UserController {
   @Post('token')
   async refreshToken(@Body() body: { refreshToken: string }) {
     const refreshToken = body.refreshToken;
-    const storedTokenData = this.userService.findRefreshToken(refreshToken);
+    // const storedTokenData = this.userService.findRefreshToken(refreshToken);
 
     try {
       return await this.userService.refreshAccessToken(refreshToken);
@@ -67,6 +69,12 @@ export class UserController {
   // Retrieves all users with pagination
 
   @Get()
+  @UseGuards(JwtAuthGuard)
+  async getProfile(@GetUser() user: any) {
+    return await this.userService.getProfile(user);
+  }
+
+  @Get('/all')
   @UseGuards(JwtAuthGuard)
   async findAll(
     @Query('page', new ParseIntPipe()) page: number = 1,
@@ -107,7 +115,7 @@ export class UserController {
   async findOne(@Param('id', ParseIntPipe) id: number) {
     try {
       const user = await this.userService.findOne(id);
-      const { password, ...userWithoutPassword } = user;
+      const { /* password, */ ...userWithoutPassword } = user;
 
       return {
         code: HttpStatus.OK,

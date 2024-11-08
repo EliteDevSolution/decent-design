@@ -35,7 +35,7 @@ export class UserService {
   async validateUser(email: string, pass: string): Promise<any> {
     const user = await this.findOneByEmail(email);
     if (user && (await bcrypt.compare(pass, user.password))) {
-      const { password, ...result } = user;
+      const { /* password, */ ...result } = user;
       return result;
     }
     return null;
@@ -44,34 +44,39 @@ export class UserService {
   // Handles user login
 
   async login(user: any) {
-    const payload = { sub: user.id };
+    const payload = {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+    };
 
     // Generate access token
-    const accessToken = this.jwtService.sign(payload, {
+    const access_token = this.jwtService.sign(payload, {
       expiresIn: '1h',
     });
 
     // Generate refresh token
-    const refreshToken = this.jwtService.sign(payload, {
-      expiresIn: '30s',
+    const refresh_token = this.jwtService.sign(payload, {
+      expiresIn: '1h',
     });
 
     // Store the refresh token in the array
     this.refreshTokens.push({
       userId: user.id,
-      refreshToken: refreshToken,
+      refreshToken: refresh_token,
     });
 
     return {
-      accessToken,
-      refreshToken,
-      user: {
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-      },
+      access_token,
+      refresh_token,
+      expires_in: 3600,
+      refresh_expires_in: 3600,
     };
+  }
+
+  async getProfile(user: any) {
+    return await this.findOne(user.id);
   }
 
   // Retrives a paginated list of users
