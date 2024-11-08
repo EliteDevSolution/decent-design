@@ -1,48 +1,28 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: 'users' })
+@Entity()
 export class User {
-  @PrimaryGeneratedColumn({ type: 'bigint', unsigned: true })
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 100 })
-  name: string;
+  @Column()
+  firstName: string;
 
-  @Column({ length: 100, unique: true })
+  @Column()
+  lastName: string;
+
+  @Column()
   email: string;
-
-  @Column({ type: 'timestamp', default: null })
-  email_verified_at: Date;
 
   @Column()
   password: string;
 
   @Column({ default: false })
-  is_superadmin: boolean;
+  flag: boolean;
 
-  @Column({ default: false })
-  is_active: boolean;
+  @Column({ nullable: true, length: 4 })
+  otp: string;
 
-  @CreateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-  })
-  created_at: Date;
-
-  @UpdateDateColumn({
-    type: 'timestamp',
-    onUpdate: 'CURRENT_TIMESTAMP(6)',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-  })
-  updated_at: Date;
-
-  constructor(user: Partial<User>) {
-    Object.assign(this, user);
-  }
+  @Column({ nullable: true })
+  requestedAt: Date;
 }

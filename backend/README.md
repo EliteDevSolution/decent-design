@@ -1,116 +1,66 @@
-# Authentication
+# NestJS User Management
 
-Simple JWT practice.
+This is a backend project for managing user authentication and profile management using NestJS.
 
-## TODO
+## Features
 
-- (Done) Register/Sign up
-- (Done) Account activation
-- (Done) Login/Sign in
-- (Done) Logout/Sign out
-- (Done) Forgot password + send email
-- (Done) Reset password
-- (Done) Remember me
-- (Done) Refresh token
-- (Done) Account disable
-- (Done) User CRUD
+- User Sign-up & Login
+- JWT Authentication
+- User Profile Management (CRUD operations)
+- Password encryption
 
-**NB.**
+## Installation
 
-Token:
-
-- Default Access Token: Expire in 3600 seconds (1 Hour).
-- Remember me token will exire in 7 days.
-- Refresh token will expire in 30 days.
-
-Logout:
-
-Something you should know about token-based authentication is that it is stateless. This means that even the server does not keep track of which users are authenticated, like with session-based authentication. As such, you do not need to do anything on the server side to "log out" a user. You simply need to delete the t\JWT token on the client. If you make a request to the server app, without a valid JWT token, it will be treated as the user is not logged in.
-
-## Basic start
+Clone the repository and install dependencies.
 
 ```bash
-# Install NestJS
-> nest new authentication
-
-# Create auth module
-> nest g module auth
-
-# Create a controller
-> nest g controller auth
-
-# Create a service
-> nest g service auth
-
+git clone https://github.com/yourusername/nestjs-user-management.git
+cd nestjs-user-management
+npm install
 ```
 
-Start development server
+## Configuration
 
-> npm run start:dev
-
-## ESLintrc issue
-
-add the code bellow into **.eslintrc.js** at **rules** area
-
-> 'prettier/prettier': ['error', {'endOfLine': 'auto'}],
-
-## Steps
-
-- Create DTO
-- Install JWT related packages
+Create a .env file in the root directory and add the following:
 
 ```bash
-# Passport
-npm i @nestjs/jwt @nestjs/passport passport passport-jwt passport-local
-npm i -D @types/passport-jwt @types/passport-local
-
-# For bcrypt
-npm i bcrypt
-npm i -D @types/bcrypt
+SECRET_KEY=your_jwt_secret
+DATABASE_URL=your_database_connection_string
 ```
 
-- Create DTO
-- Create Guard
-- Create Strategy
-- Install ConfigService
+## Running the Application
+
+To start the server, run the following command:
 
 ```bash
-npm i --save @nestjs/config
+npm run start
 ```
 
-- Database
+## Endpoints
+
+The API provides the following endpoints:
+
+- POST /user/login - for user login
+- POST /user/token - for refreshing JWT token
+- GET /user - for retrieving user profiles
+- POST /user - for creating a new user
+- GET /user/:id - for retrieving a single user profile
+- PATCH /user/:id - for updating user profile
+- DELETE /user/:id - for deleting a user profile
+- POST /user/logout - for user logout
+
+## Seeding the Database
+
+To seed the database with initial data, run the following command:
 
 ```bash
-npm i @nestjs/typeorm typeorm mysql2
+npm run seed
 ```
 
-## New Commands
+## Technologies
 
-```bash
-# Generate resource
-nest g resource <resource-name>
-```
-
-## Configure mailer
-
-```bash
-npm install --save @nestjs-modules/mailer nodemailer
-npm install preview-email
-```
-
-To generate a random JWT secret key, you can use a tool like Node.js to create a random string. Here's a simple example:
-
-```bash
-node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-
-# or,
-node -e "console.log(require('crypto').randomBytes(256).toString('base64'));"
-```
-
-## Doc and tutorials
-
-Logout & Refresh token tutorial: [Dev Influence](https://www.dev-influence.com/article/jwt-authentication-in-nestjs)
-
-Documentation: [NestJS - Mailer](https://nest-modules.github.io/mailer/docs/mailer) and video tutorial: [Youtube](https://www.youtube.com/watch?v=DAAxWEPCARo)
-
-Thank you.
+- NestJS
+- TypeORM
+- PostgreSQL
+- JWT for authentication
+- bcrypt for password hashing

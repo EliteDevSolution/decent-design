@@ -92,7 +92,7 @@ const SignUpPage = () => {
       {isMounted ? (
         <Row
           justify="center"
-          className="border-2 border-neutral-100 rounded-lg w-[350px] sm:w-[500px] md:w-[600px] mt-5"
+          className="border-2 border-neutral-100 rounded-lg w-[350px] sm:w-[400px] md:w-[450px] mt-5"
         >
           <Col xs={24} sm={24} md={24} lg={24}>
             <Form
