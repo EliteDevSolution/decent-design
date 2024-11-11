@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { DesignTemp } from '../../design_temp/entities/design.temp.entity';
 
 @Entity()
 export class User {
@@ -25,4 +26,9 @@ export class User {
 
   @Column({ nullable: true })
   requestedAt: Date;
+
+  @OneToMany(() => DesignTemp, (temp) => temp.user, {
+    eager: false,
+  })
+  design_temp: DesignTemp[];
 }

@@ -1,9 +1,9 @@
 import { AxiosInstance } from 'axios'
-import { parseCredentials } from '@/utils/cookies'
+import { parseCredentials, removeCredentials } from '@/utils/cookies'
 import { SignInData, SignUpData, Credentials } from '@/types/auth'
 import { User } from '@/types/user'
 import api from './api'
-
+import Router from 'next/router'
 export class AuthService {
   private instance: AxiosInstance
 
@@ -38,7 +38,12 @@ export class AuthService {
 
   public async logout() {
     const { refreshToken } = parseCredentials()
+    console.log(refreshToken)
 
+    // if (typeof refreshToken === 'undefined') {
+    //   removeCredentials()
+    //   Router.push('/auth/signin')
+    // } else {
     const logOutData = {
       refreshToken,
     }
@@ -48,6 +53,7 @@ export class AuthService {
       .then(({ data }) => data)
       .catch((error) => Promise.reject(error))
   }
+  // }
 
   public async getUser() {
     return this.instance

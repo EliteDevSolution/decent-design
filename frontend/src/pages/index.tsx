@@ -1,39 +1,22 @@
-import Heading from '@/components/Heading'
-import Text from '@/components/Text'
-import Button from '@/components/Button'
-import withAuthServerSide from '@/hof/withAuthServerSide'
-import { useAuth } from '@/hooks/useAuth'
-import Layout from '@/components/MainLayout'
-
+import { Providers } from '@/components/MainLayout'
+import { AnalizeCard } from '@/components/Card'
+import { AnalizeTable } from '@/components/Table'
 export default function Dashboard() {
-  const { user, signOut } = useAuth()
-
-  if (!user) {
-    return <p>Loading...</p>
-  }
-
   return (
-    <Layout>
-      <div className="w-screen h-screen flex flex-col items-center justify-center bg-zinc-900 text-zinc-100">
-        <main className="w-full max-w-sm">
-          <Heading size="lg" className="text-center mb-2">
-            Welcome, {user.firstName}! 🎉
-          </Heading>
-          <Text size="lg" className="text-center text-zinc-400">
-            {user.email}
-          </Text>
+    <Providers>
+      <div className="w-full h-[calc(100vh-63.99px)] bg-[#24292D] px-[85px] pt-16">
+        <div className="grid grid-cols-4 gap-8 w-full">
+          <AnalizeCard />
+          <AnalizeCard />
+          <AnalizeCard />
+          <AnalizeCard />
+        </div>
 
-          <Button className="w-full uppercase mt-10" onClick={signOut}>
-            Sign out
-          </Button>
-        </main>
+        <div className="grid grid-cols-4 gap-8 w-full pt-9">
+          <AnalizeCard />
+          <AnalizeTable />
+        </div>
       </div>
-    </Layout>
+    </Providers>
   )
 }
-
-export const getServerSideProps = withAuthServerSide(async () => {
-  return {
-    props: {},
-  }
-})

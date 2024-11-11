@@ -32,7 +32,6 @@ export class UserController {
   @UseGuards(LocalAuthGuard)
   @Post('/login')
   async login(@Request() req) {
-    console.log('Here is login part');
     return this.userService.login(req.user);
   }
 
@@ -54,19 +53,7 @@ export class UserController {
       // Other possible exceptions
       throw new InternalServerErrorException('Could not refresh access token');
     }
-
-    // if (!storedTokenData) {
-    //   throw new UnauthorizedException('Invalid refresh token');
-    // }
-
-    // // Use UserService to generate a new access token
-    // const newAccessToken = await this.userService.getNewAccessToken(
-    //   storedTokenData.userId,
-    // );
-    // return { accessToken: newAccessToken };
   }
-
-  // Retrieves all users with pagination
 
   @Get()
   @UseGuards(JwtAuthGuard)
